@@ -1,12 +1,12 @@
 /* css/style.css */
 input[type="date"]::-webkit-calendar-picker-indicator {
     /* Agar icon tanggal terlihat di dark mode (invert) dan light mode (normal) */
-    /* Kita gunakan filter css standard, tapi karena tailwind handle dark mode via class HTML, 
-       kita perlu sedikit trik CSS native jika ingin icon berubah otomatis */
+    /* Gunakan filter css standard, tapi karena tailwind handle dark mode via class HTML, 
+       perlu sedikit trik CSS native jika ingin icon berubah otomatis */
     cursor: pointer;
 }
 
-/* Trik agar icon tanggal berubah warna saat dark mode aktif */
+/* Agar icon tanggal berubah warna saat dark mode aktif */
 .dark input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
