@@ -1,17 +1,12 @@
-/* style.css */
-
-/* Kita biarkan minimal karena sudah pakai Tailwind */
-
-/* Mengubah warna icon kalender pada input date agar terlihat di background gelap */
+/* css/style.css */
 input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
+    /* Agar icon tanggal terlihat di dark mode (invert) dan light mode (normal) */
+    /* Kita gunakan filter css standard, tapi karena tailwind handle dark mode via class HTML, 
+       kita perlu sedikit trik CSS native jika ingin icon berubah otomatis */
     cursor: pointer;
 }
 
-/* Transisi halus untuk baris tabel */
-tr {
-    transition: background-color 0.2s ease;
-}
-tr:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+/* Trik agar icon tanggal berubah warna saat dark mode aktif */
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="dark"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List App</title>
@@ -11,12 +10,14 @@
     
     <script>
         tailwind.config = {
+            darkMode: 'class', // PENTING: Ini mengaktifkan fitur toggle manual
             theme: {
                 extend: {
                     colors: {
+                        // Warna khusus Dark Mode (sesuai PDF)
                         darkBg: '#121212',
-                        cardBg: '#1e1e2e',
-                        inputBg: '#2b2b3d',
+                        darkCard: '#1e1e2e',
+                        darkInput: '#2b2b3d',
                         accent: '#6c5ce7',
                     }
                 }
@@ -24,17 +25,29 @@
         }
     </script>
 </head>
-<body class="bg-darkBg text-white flex justify-center items-center min-h-screen font-sans">
+<body class="bg-gray-100 dark:bg-darkBg text-gray-800 dark:text-white flex justify-center items-center min-h-screen font-sans transition-colors duration-300">
 
-    <div class="container w-full max-w-2xl bg-cardBg p-8 rounded-xl shadow-2xl mx-4">
-        <h1 class="text-3xl font-bold text-center mb-8 tracking-wide">Todo List</h1>
+    <div class="container w-full max-w-2xl bg-white dark:bg-darkCard p-8 rounded-xl shadow-2xl mx-4 transition-colors duration-300">
+        
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold tracking-wide">Todo List</h1>
+            
+            <button onclick="toggleTheme()" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
 
         <div class="flex flex-col sm:flex-row gap-3 mb-6">
             <input type="text" id="taskInput" placeholder="Add a todo..." 
-                class="flex-grow bg-inputBg border border-gray-600 p-3 rounded-lg text-white focus:outline-none focus:border-accent transition">
+                class="flex-grow bg-gray-50 dark:bg-darkInput border border-gray-300 dark:border-gray-600 p-3 rounded-lg text-gray-800 dark:text-white focus:outline-none focus:border-accent transition">
             
             <input type="date" id="dateInput" 
-                class="bg-inputBg border border-gray-600 p-3 rounded-lg text-white focus:outline-none focus:border-accent transition sm:w-1/3">
+                class="bg-gray-50 dark:bg-darkInput border border-gray-300 dark:border-gray-600 p-3 rounded-lg text-gray-800 dark:text-white focus:outline-none focus:border-accent transition sm:w-1/3">
             
             <button id="addBtn" onclick="addTodo()" 
                 class="bg-accent hover:bg-purple-700 text-white font-bold p-3 rounded-lg shadow-md transition duration-300 flex items-center justify-center min-w-[50px]">
@@ -47,12 +60,12 @@
         <div class="flex justify-between items-center mb-6">
             <div class="relative">
                 <select id="filterInput" onchange="filterTodos()" 
-                    class="bg-inputBg text-white px-4 py-2 pr-8 rounded-lg border border-gray-600 focus:outline-none focus:border-accent appearance-none cursor-pointer">
+                    class="bg-gray-50 dark:bg-darkInput text-gray-800 dark:text-white px-4 py-2 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-accent appearance-none cursor-pointer transition">
                     <option value="all">All</option>
                     <option value="pending">Pending</option>
                     <option value="completed">Completed</option>
                 </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800 dark:text-white">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                 </div>
             </div>
@@ -63,14 +76,14 @@
             </button>
         </div>
 
-        <div class="overflow-x-auto rounded-lg border border-gray-700">
+        <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 transition-colors">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-gray-800 text-gray-400 text-sm uppercase">
-                        <th class="p-4 border-b border-gray-700">Task</th>
-                        <th class="p-4 border-b border-gray-700">Due Date</th>
-                        <th class="p-4 border-b border-gray-700">Status</th>
-                        <th class="p-4 border-b border-gray-700">Actions</th>
+                    <tr class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm uppercase transition-colors">
+                        <th class="p-4 border-b border-gray-200 dark:border-gray-700">Task</th>
+                        <th class="p-4 border-b border-gray-200 dark:border-gray-700">Due Date</th>
+                        <th class="p-4 border-b border-gray-200 dark:border-gray-700">Status</th>
+                        <th class="p-4 border-b border-gray-200 dark:border-gray-700">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="todoTableBody" class="text-sm">
